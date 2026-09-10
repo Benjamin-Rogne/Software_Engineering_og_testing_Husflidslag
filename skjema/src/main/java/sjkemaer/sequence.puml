@@ -1,0 +1,28 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+autonumber
+
+Frontend -> WebAPI:
+WebAPI -> NyhetService:
+WebAPI -> KursService:
+NyhetService -> MySQLDatabase:
+KursService -> MySQLDatabase:
+
+alt success
+    KursService <-- MySQLDatabase: kurs opprettet
+    NyhetService <-- MySQLDatabase: nyhet opprettet
+    WebAPI <-- KursService: kurs opprettet
+    WebAPI <-- NyhetService: nyhet opprettet
+    Frontend <-- WebAPI: melding om at kurs er opprettet
+
+else failure
+    KursService <-- MySQLDatabase: sql error
+    NyhetService <-- MySQLDatabase: sql error
+    WebAPI <-- KursService: kunne ikke opprette kurs
+    WebAPI <-- NyhetService: kunne ikke opprette nyhet
+    Frontend <-- WebAPI: feilmelding med kode
+end
+
+
+
+@enduml
