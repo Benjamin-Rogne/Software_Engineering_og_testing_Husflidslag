@@ -1,0 +1,56 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+class Person {
+    - fornavn: String
+    - etternavn: String
+    - bio : String
+    - tlf : Int
+    - rolle: Rolle
+    - persBilde: Img
+}
+
+class Kurs {
+    - dato: LocalDateTime
+    - title: String
+    - descripion: String
+    - kursholder: Person
+    - bilde: Img
+    - pris: Int
+    - antPers: Int
+}
+class Nyheter {
+    - title: String
+    - descripion: String
+    - bilde: Img
+    - forfatter: Person
+}
+
+enum Rolle {
+    kursholder
+    admin
+}
+
+class KursService{
+    + createKurs(): Kurs
+    + deleteKurs(): Kurs
+    + editKurs(): Kurs
+    + publishKurs(): Kurs
+}
+
+class NyhetService{
+    + createNyhet(): Nyheter
+    + deleteNyhet(): Nyheter
+    + editNyhet(): Nyheter
+    + publishNyhet(): Nyheter
+
+}
+Rolle --> Person
+Person --o Kurs
+Person --o Nyheter
+NyhetService --> Nyheter
+KursService --> Kurs
+
+
+
+@enduml
